@@ -1,1 +1,1 @@
-# kratos v2 http resolver
+# kratos v2 http discover resolver
