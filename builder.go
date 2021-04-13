@@ -2,7 +2,6 @@ package kratosv2httpresolver
 
 import (
 	"context"
-	"fmt"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/registry"
 	"google.golang.org/grpc/attributes"
@@ -45,9 +44,10 @@ func NewBuilder(d registry.Discovery, target string, opts ...Option) Builder {
 func (b *builder) Build() error {
 	i, e := b.discoverer.GetService(context.Background(), b.target)
 	if e != nil {
-		return fmt.Errorf("discoverer.GetService %v err: %v", b.target, e)
+		b.logger.Print("discoverer.GetService %v err: %v", b.target, e)
+	} else {
+		b.updateStates(i)
 	}
-	b.updateStates(i)
 
 	w, err := b.discoverer.Watch(context.Background(), b.target)
 	if err != nil {
