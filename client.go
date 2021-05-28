@@ -186,7 +186,7 @@ func (c *Client) Do(req *http.Request, target interface{}) error {
 	}
 	defer res.Body.Close()
 	if res.StatusCode < 200 || res.StatusCode > 299 {
-		se := &errors.StatusError{Code: 2}
+		se := &errors.Error{Code: 2}
 		if err := decodeResponse(res, se); err != nil {
 			return err
 		}
