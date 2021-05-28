@@ -44,7 +44,7 @@ func NewBuilder(d registry.Discovery, target string, opts ...Option) Builder {
 func (b *builder) Build() error {
 	i, e := b.discoverer.GetService(context.Background(), b.target)
 	if e != nil {
-		b.logger.Log(og.LevelError, "discoverer.GetService", b.target, "err",  e)
+		b.logger.Log(log.LevelError, "discoverer.GetService", b.target, "err",  e)
 	} else {
 		b.updateStates(i)
 	}
@@ -69,7 +69,7 @@ func (b *builder) updateStates(ins []*registry.ServiceInstance) {
 	for _, in := range ins {
 		endpoint, err := parseEndpoint(in.Endpoints)
 		if err != nil {
-			b.logger.log(log.LevelError, "Failed to parse discovery endpoint", err)
+			b.logger.Log(log.LevelError, "Failed to parse discovery endpoint", err)
 			continue
 		}
 		if endpoint == "" {
